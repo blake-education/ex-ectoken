@@ -37,12 +37,7 @@ defmodule Ectoken do
     expire_at = now + expiry
     plain_text = "ec_expire=#{expire_at}"
 
-    aes_blocksize = 32
-    <<keyhash :: binary-size(aes_blocksize)>> <> _rest = :crypto.hash(:sha256, secret)
-
-    {cipher_text, cipher_tag} = :crypto.block_encrypt(:aes_gcm, keyhash, iv, {"", plain_text}) 
-
-    iv <> cipher_text <> cipher_tag |> Base.url_encode64
+    encrypt(secret, plain_text, iv)
   end
 
   @doc """
