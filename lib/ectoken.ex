@@ -49,9 +49,8 @@ defmodule Ectoken do
   end
 
   def expiry_token(secret, expiry) do
-    iv = :crypto.strong_rand_bytes(12)
     now = DateTime.to_unix(DateTime.utc_now())
 
-    expiry_token(secret, expiry, now, iv)
+    expiry_token(secret, expiry, now)
   end
 end
